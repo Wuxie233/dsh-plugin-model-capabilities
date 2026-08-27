@@ -21,6 +21,7 @@ DSH host-only 守护插件：自动补全 `llm-pi-ai` 模型能力字段（llm-p
 - **pi-ai 的 exports 不含 `./package.json` 且 `.` 无 require 条件**：CJS `require.resolve` 双拼写都 `ERR_PACKAGE_PATH_NOT_EXPORTED`；定位已安装 catalog 必须用 `import.meta.resolve('@earendil-works/pi-ai')`（走 import 条件）→ `dist/index.js` 同级 `providers/data`。
 - **聚合文件会遮蔽上游条目**：`opencode.json`/`opencode-go.json`/token-plan 文件按字母序排在 `zai.json` 等前面，携带稀疏条目；重复 id 时按"能力字段更多者胜"（`capabilityScore`），平局保先到。
 - **自洽规则**：同一条目 `compat.supportsReasoningEffort === false` 时必须丢弃其 efforts 映射，否则 UI 档位会显示但派发永不发送（选择器撒谎）。
+- **compat 键可合并**：已有 `compat` 只缺 `supportsDeveloperRole` 时按键合并，不整块替换。来源未写该键而条目或来源是 `thinkingFormat: zai` 时填 `false`（私有网关把系统提示发成 `developer` 会被拒）。
 - **compat 只补 `openai-completions` 路由**：llm-pi-ai 的 resolveModelCompat 对其他协议上的模型级 compat 直接抛错，会拒收整次写入。
 - **reasoningEfforts 不猜**：来源没有显式档位映射就不补（haiku 等无映射模型保持无档位），错配档位比缺档位危害大。
 - models.dev 聚合 models.json 的 id 是 `vendor/model` slug，取 `/` 后缀做裸 id 匹配；聚合比 TOML 目录滞后（glm-5.2/5.3 长期缺），只作末位兜底。
@@ -30,6 +31,7 @@ DSH host-only 守护插件：自动补全 `llm-pi-ai` 模型能力字段（llm-p
 ## Commands
 
 - `./install.sh` — 部署（幂等）
+- `node scripts/capabilities.test.mjs` — 无密钥：zai 条目缺 `supportsDeveloperRole` 时按键填 `false`
 - `node scripts/smoke-scan.mjs` — 对真实 settings 只读预检扫描（约 12s，含网络层）
 - `node --check`：ESM 文件复制为 `.mjs` 再查
 - 生效验证：`cd ~/.dsh/profiles/web && node -e "await import('dsh-plugin-model-capabilities')"`

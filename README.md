@@ -10,7 +10,7 @@ DSH 后台守护插件：自动补全 `llm-pi-ai` 各路由模型条目缺失的
   2. 最新 pi-ai npm catalog（npmmirror 拉取，缓存 24h）；
   3. 运行时已安装的 pi-ai catalog（零网络）；
   4. models.dev 聚合数据（`gh api` 拉取，缓存 24h）。
-- 安全性：**只补缺失字段，永不覆盖已写字段**；写入走 settings 服务，llm-pi-ai 自己的 `assertServiceable` 校验拒绝坏数据（整次写入拒收、不落盘）；写入冲突自动重扫一次收敛。
+- 安全性：**只补缺失字段，永不覆盖已写字段**；写入走 settings 服务，llm-pi-ai 自己的 `assertServiceable` 校验拒绝坏数据（整次写入拒收、不落盘）；写入冲突自动重扫一次收敛。已有 `compat` 对象若缺 `supportsDeveloperRole`，按来源事实合并该键；来源未写而条目或来源是 `thinkingFormat: zai` 时填 `false`。
 - 仅处理显式声明了 `api` 的路由（自定义中转路由）；catalog 路由自带完整数据无需帮助。
 - 每次补全写一行日志（`pm2 logs dsh-web` 可见）：`model-capabilities: <route>/<model> <- <source>: <fields>`。
 
