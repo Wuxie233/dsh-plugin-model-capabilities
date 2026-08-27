@@ -11,7 +11,7 @@
 import { readFileSync } from 'node:fs'
 import { homedir } from 'node:os'
 import { pathToFileURL } from 'node:url'
-import YAML from '/opt/opencode-runtime/deployments/deepseek-harness/node_modules/.pnpm/yaml@2.9.0/node_modules/yaml/dist/index.js'
+import YAML from '/root/CODE/deepseek-harness/node_modules/.pnpm/yaml@2.9.0/node_modules/yaml/dist/index.js'
 
 // Drive the DEPLOYED copy (deps resolve from the profile), not the repo source.
 const { apply } = await import(pathToFileURL(
