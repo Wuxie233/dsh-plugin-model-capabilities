@@ -9,6 +9,7 @@ DSH host-only 守护插件：自动补全 `llm-pi-ai` 模型能力字段（llm-p
   - `lib/sources.js` — 来源链 IO：overrides 文件、已安装 pi-ai catalog（`import.meta.resolve` 定位）、最新 pi-ai（npmmirror tarball，curl+tar 子进程，缓存 24h）、models.dev 聚合（`gh api` raw，缓存 24h）；失败负缓存 1h；
   - `lib/index.js` — 守护：启动 settle 轮询（3s×100 等 llm-pi-ai 命名空间注册）、`settings/document-updated` 防抖 5s、12h 定期重扫；写入走 `settings.mutate('llm-pi-ai', [set providers], revision)`。
 - 写入单元是整个 `providers` 对象：settings 的路径操作不能安全索引数组（会把数组替换成对象），粗粒度 set + `expectedRevision` 乐观锁。
+- DSH 0.1.2-alpha.1：`settingsNamespace('llm-pi-ai')`、`describe().ns/user/revision`、`mutate(ns, [{op:'set', path:['providers'], value}], revision)`、`SettingsConflictError` 都还在。无 client-runtime/apiproxy 依赖。
 
 ## Conventions
 

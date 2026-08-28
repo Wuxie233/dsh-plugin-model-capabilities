@@ -1,7 +1,7 @@
 {
   "name": "dsh-plugin-model-capabilities",
   "description": "Background auto-fill of llm-pi-ai model capability fields (context window, output cap, modalities, reasoning efforts, compat) from overrides → pi-ai catalogs → models.dev",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "type": "module",
   "main": "lib/index.js",
   "exports": {
@@ -13,7 +13,7 @@
   "files": ["lib"],
   "license": "MIT",
   "dependencies": {
-    "@deepseek-ai/dsh-settings": "^0.1.0-rc.6",
+    "@deepseek-ai/dsh-settings": "^0.1.2-alpha.1",
     "@deepseek-ai/schemastery": "^3.18.1"
   }
 }
