@@ -1,3 +1,21 @@
+## 当前接入方式：dsh-std adapter
+
+本插件通过 dsh-plugin.json 声明标准 host facet；lib/index.js 发布
+plugins.starpivot.dev/v1 HostPlugin，lib/host.js 保留业务策略并接收 adapter API。
+有浏览器界面的插件另声明 LocalModule，使用私有 WebPlugin surface。
+
+执行 ./install.sh 会先验证全部九个自制插件的组合、Web 界面与 CodeCarry
+原生 Remote，再备份并复制部署；失败不替换生产插件。需先安装同级 dsh-std
+维护仓库及其依赖。部署后在没有活跃任务时重启 dsh，并刷新 Web。
+
+不要把 lib/index.js 直接作为 Cordis 插件挂载；原插件的 cordis insert 行由
+共享部署器移除，配置迁入 adapter.componentConfigs。不要链接运行时插件目录。
+标准协议不承诺未来版本永久兼容；native ctx/hooks 的变化由候选门禁和集中
+adapter 维护控制。Web 界面不会自动出现在原生 Android 中。
+
+下方保留业务说明和历史修复记录；涉及旧式直接挂载、导入和安装步骤的内容，
+以本节为准。
+
 # dsh-plugin-model-capabilities
 
 DSH 后台守护插件：自动补全 `llm-pi-ai` 各路由模型条目缺失的能力字段（上下文窗口、输出上限、输入模态、推理档位、compat），补完的配置经 settings 服务写入 `~/.dsh/settings.yaml`，热加载即时生效。

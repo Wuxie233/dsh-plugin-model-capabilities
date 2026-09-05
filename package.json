@@ -10,10 +10,11 @@
     "./sources": "./lib/sources.js",
     "./package.json": "./package.json"
   },
-  "files": ["lib"],
+  "files": [
+    "lib",
+    "lib/",
+    "dsh-plugin.json"
+  ],
   "license": "MIT",
-  "dependencies": {
-    "@deepseek-ai/dsh-settings": "^0.1.2-alpha.1",
-    "@deepseek-ai/schemastery": "^3.18.1"
-  }
+  "dependencies": {}
 }
